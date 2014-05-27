@@ -6,7 +6,8 @@ object GeoScript extends Build {
 
   val meta =
     Seq[Setting[_]](
-      organization := "org.geoscript",
+      organization := "org.velvia",   // publish in our own org.  Make it clear this is not official version.
+      // organization := "org.geoscript",
       version := "0.8.2",
       gtVersion := "9.3",
       scalaVersion := "2.10.4",
