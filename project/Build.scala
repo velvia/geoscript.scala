@@ -44,11 +44,11 @@ object GeoScript extends Build {
     )
 
   lazy val root =
-    Project("root", file("."), settings = common ++ Seq(fork in test := false, publish := false)) aggregate(css, examples, library)
+    Project("root", file("."), settings = common ++ Seq(fork in test := false, publish := {})) aggregate(css, examples, library)
   lazy val css =
     Project("css", file("geocss"), settings = common)
   lazy val examples =
-    Project("examples", file("examples"), settings = common ++ Seq(fork in test := false, publish := false)) dependsOn(library)
+    Project("examples", file("examples"), settings = common ++ Seq(fork in test := false, publish := {})) dependsOn(library)
   lazy val library =
     Project("library", file("geoscript"), settings = sphinxSettings ++ common) dependsOn(css)
 

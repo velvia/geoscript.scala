@@ -6,6 +6,15 @@ It is based on the `GeoTools <http://geotools.org>`_ geospatial library for Java
 Similar GeoTools wrappers are available for Python, Groovy, and JavaScript (using the ringojs platform).
 See http://geoscript.org/ for details.
 
+Using
+-----
+
+Include this in ``build.sbt``:
+
+    repositories += "velvia maven" at "http://dl.bintray.com/velvia/maven"
+
+    libraryDependencies += "org.velvia" %% "geoscript" % "0.8.3"
+
 Building
 --------
 
