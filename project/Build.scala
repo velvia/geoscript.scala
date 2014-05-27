@@ -1,4 +1,5 @@
 import sbt._, Keys._, Defaults.defaultSettings
+import bintray.Plugin.bintrayPublishSettings
 
 object GeoScript extends Build {
   lazy val gtVersion =
@@ -23,7 +24,7 @@ object GeoScript extends Build {
         "opengeo" at "http://repo.opengeo.org/",
         "osgeo" at "http://download.osgeo.org/webdav/geotools/"
       )
-    ) ++ meta ++ defaultSettings
+    ) ++ meta ++ defaultSettings ++ publishSettings
 
   val sphinxSettings =
     Seq(
@@ -35,6 +36,11 @@ object GeoScript extends Build {
       sphinxOpts := Nil,
       sphinx <<= (sphinxBuild, sphinxSource, sphinxDir, sphinxOpts) map (runSphinx),
       watchSources <<= (baseDirectory, target) map { (b, t) => (b ** "*") --- (t ** "*") get }
+    )
+
+  lazy val publishSettings = bintrayPublishSettings ++
+    Seq(
+      licenses += ("MIT", url("http://choosealicense.com/licenses/mit/"))
     )
 
   lazy val root =
