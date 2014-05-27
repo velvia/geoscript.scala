@@ -1,3 +1,5 @@
+[NOTE: This is a fork of dwins/geoscript.scala, which doesn't appear to be maintained any more]
+
 GeoScript.scala is a Scala library for simple reading, writing, manipulation, and rendering of geospatial data.
 It is based on the `GeoTools <http://geotools.org>`_ geospatial library for Java.
 
