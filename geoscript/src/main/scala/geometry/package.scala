@@ -13,7 +13,7 @@ package object geometry {
   type MultiLineString = jts.MultiLineString
   type Point = jts.Point
   type MultiPoint = jts.MultiPoint
-  
+
   type Coordinate = jts.Coordinate
   type Envelope = jts.Envelope
 
@@ -21,13 +21,13 @@ package object geometry {
 
   /**
    * An enumeration of the valid end-cap styles when buffering a (line) Geometry.
-   * Valid styles include: 
+   * Valid styles include:
    * <ul>
    *   <li>Round - A semicircle </li>
    *   <li>Butt - A straight line perpendicular to the end segment</li>
    *   <li>Square - A half-square</li>
    * </ul>
-   * 
+   *
    * @see org.geoscript.geometry.Geometry.buffer
    */
   object EndCap {
@@ -108,15 +108,16 @@ package object geometry {
       geom.apply(filter)
       geom
     }
-  } 
+  }
 
   implicit class RichPoint(val p: Point) extends AnyVal {
     def x = p.getX
     def y = p.getY
   }
-}
+// TODO(velvia): Clean this up the right way.  This is just a way to get it to compile right now.
+// }
 
-package geometry {
+// package geometry {
   class Builder(factory: com.vividsolutions.jts.geom.GeometryFactory) {
     def Coordinate(x: Double, y: Double): Coordinate = new Coordinate(x, y)
     def mkCoord(xy: (Double, Double)) = (Coordinate _).tupled(xy)
@@ -126,7 +127,7 @@ package geometry {
 
     def Point(x: Double, y: Double): Point =
       factory.createPoint(Coordinate(x,y))
-    def LineString(coords: Seq[(Double, Double)]): LineString = 
+    def LineString(coords: Seq[(Double, Double)]): LineString =
       factory.createLineString(coords.map(mkCoord).toArray)
     def Polygon(ring: Seq[(Double, Double)], holes: Seq[Seq[(Double, Double)]] = Nil): Polygon =
       factory.createPolygon(
