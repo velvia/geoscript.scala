@@ -3,6 +3,7 @@ package org.geoscript
 import org.geoscript.geometry._
 import org.geotools.geometry.jts.JTS
 import org.geotools.referencing.CRS
+import scala.util.Try
 
 package object projection {
   /**
@@ -19,7 +20,7 @@ package object projection {
    * convenience methods for operating with Projections.
    */
   type Projection = org.opengis.referencing.crs.CoordinateReferenceSystem
-  
+
   /**
    * A Transform is a function for converting coordinates from one Projection to another.
    * @see [[org.geoscript.projection.Projection]]
@@ -49,7 +50,7 @@ package object projection {
         .asInstanceOf[Boolean])
       Hints.putSystemDefault(Hints.FORCE_AXIS_ORDER_HONORING, "http")
   }
-  
+
   def lookupEPSG(code: String): Option[Projection] =
     try
       Some(org.geotools.referencing.CRS.decode(code))
@@ -83,15 +84,19 @@ package object projection {
     /**
      * Create a Transform from this projection to another one, which
      * can be applied to JTS Geometries. Example usage:
-     * 
+     *
      * {{{
      * import org.geoscript._, geometry.builder._, projection._
      * val point = Point(1, 2)
      * val convert = LatLon to WebMercator
      * val reprojected = convert(point)
      * }}}
+     *
+     * NOTE: We have to relax the math transform slightly to allow reprojections to take place
+     * from shape file .prj's which have incomplete info -- as a fallback
      */
-    def to(dest: Projection): Transform = CRS.findMathTransform(crs, dest)
+    def to(dest: Projection): Transform = Try(CRS.findMathTransform(crs, dest)).
+                                            getOrElse(CRS.findMathTransform(crs, dest, true))
 
     /**
      * Get the official spatial reference identifier (SRID) for this projection, if any
@@ -100,7 +105,7 @@ package object projection {
 
     /**
      * Get the Well Known Text specification of this projection.
-     * 
+     *
      * @see http://en.wikipedia.org/wiki/Well-known_text
      */
     def wkt: String = crs.toString()
