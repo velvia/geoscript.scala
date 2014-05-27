@@ -9,7 +9,7 @@ See http://geoscript.org/ for details.
 Using
 -----
 
-Include this in ``build.sbt``:
+Include this in ``build.sbt``::
 
     repositories += "velvia maven" at "http://dl.bintray.com/velvia/maven"
 
