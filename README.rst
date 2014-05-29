@@ -11,7 +11,7 @@ Using
 
 Include this in ``build.sbt``:
 
-    repositories += "velvia maven" at "http://dl.bintray.com/velvia/maven"
+    resolvers += "velvia maven" at "http://dl.bintray.com/velvia/maven"
 
     libraryDependencies += "org.velvia" %% "geoscript" % "0.8.3"
 
