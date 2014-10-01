@@ -9,7 +9,7 @@ object GeoScript extends Build {
     Seq[Setting[_]](
       organization := "org.velvia",   // publish in our own org.  Make it clear this is not official version.
       // organization := "org.geoscript",
-      version := "0.8.3",
+      version := "0.8.4-SNAPSHOT",
       gtVersion := "9.3",
       scalaVersion := "2.10.4",
       scalacOptions ++= Seq("-feature", "-deprecation", "-Xlint", "-unchecked"),
