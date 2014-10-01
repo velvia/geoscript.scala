@@ -114,11 +114,10 @@ package object geometry {
     def x = p.getX
     def y = p.getY
   }
-// TODO(velvia): Clean this up the right way.  This is just a way to get it to compile right now.
-// }
+}
 
-// package geometry {
-  class Builder(factory: com.vividsolutions.jts.geom.GeometryFactory) {
+package geometry {
+  class GeometryBuilder(factory: com.vividsolutions.jts.geom.GeometryFactory) {
     def Coordinate(x: Double, y: Double): Coordinate = new Coordinate(x, y)
     def mkCoord(xy: (Double, Double)) = (Coordinate _).tupled(xy)
 
@@ -152,7 +151,7 @@ package object geometry {
       factory.createGeometryCollection(geoms.toArray)
   }
 
-  object builder extends Builder(factory)
+  object builder extends GeometryBuilder(factory)
 
   private[geometry] class FunctionAsCoordinateFilter(f: Coordinate => Unit)
   extends com.vividsolutions.jts.geom.CoordinateFilter
